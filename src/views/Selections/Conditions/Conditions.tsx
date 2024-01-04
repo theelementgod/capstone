@@ -4,6 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useEffect, useState } from 'react';
+import Nav from '../../../components/Nav/Nav';
 
 const Conditions = () => {
 
@@ -54,6 +55,7 @@ const handleChange = (event: SelectChangeEvent) => {
 
   return (
     <>
+      <Nav/>
       <Box className="m-3 w-25 mx-auto" sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Selection</InputLabel>

@@ -3,15 +3,15 @@ import { storage } from "../../firebase"
 import { ref, uploadBytes, listAll, getDownloadURL, deleteObject } from "firebase/storage"
 import Nav from "../../components/Nav/Nav"
 
-const CharacterSheets = () => {
+const Resources = () => {
   
   const [imageUpload, setImageUpload] = useState<File | null>(null)
   const [imageList, setImageList] = useState([])
 
-const imageListRef = ref(storage, 'characterSheets/')
+const imageListRef = ref(storage, 'resources/')
   const uploadImage = () => {
     if(imageUpload == null) return;
-    const imageRef = ref(storage, `characterSheets/${imageUpload.name}`)
+    const imageRef = ref(storage, `resources/${imageUpload.name}`)
     console.log(imageRef)
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
@@ -45,7 +45,7 @@ const imageListRef = ref(storage, 'characterSheets/')
   return (
     <>
       <Nav/>
-      <h1 className="text-center">Character Sheets</h1>
+      <h1 className="text-center">Resources</h1>
       <div>
         <input 
         type="file" 
@@ -53,15 +53,15 @@ const imageListRef = ref(storage, 'characterSheets/')
           const imageFile = event.target.files
           if (imageFile) {
             setImageUpload(imageFile[0])}}
-
           }/>
         <button onClick={uploadImage}>Upload Image</button>
       </div>
+      <br/>
 
       <div>
         {imageList.map(([url, ref]) => {
             return <div key={url}>
-            <img className="characterSheets" src={url}/>
+            <img className="resources" src={url}/>
             <button onClick={() => {deleteImage(ref)}}>DELETE</button>
           </div>
         })}
@@ -69,4 +69,4 @@ const imageListRef = ref(storage, 'characterSheets/')
     </>
   )
 }
-export default CharacterSheets
+export default Resources

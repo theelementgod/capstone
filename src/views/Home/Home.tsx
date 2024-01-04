@@ -4,8 +4,7 @@ const Home = () => {
 
   return (
     <>
-        <Nav/>
-        DM Helper Home Page
+      <Nav/>
     </>
   )
 }
