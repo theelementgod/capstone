@@ -12,6 +12,7 @@ const firebaseConfig = {
   storageBucket: "dmhelper-1a45d.appspot.com",
   messagingSenderId: "393965848186",
   appId: import.meta.env.VITE_APP_ID,
+  databaseURL: 'https://dmhelper-1a45d-default-rtdb.firebaseio.com/',
 };
 
 

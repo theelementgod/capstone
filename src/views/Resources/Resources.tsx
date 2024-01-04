@@ -58,10 +58,10 @@ const imageListRef = ref(storage, 'resources/')
       </div>
       <br/>
 
-      <div>
+      <div className="imageContainer">
         {imageList.map(([url, ref]) => {
             return <div key={url}>
-            <img className="resources" src={url}/>
+            <img className="uploadedImages" src={url}/>
             <button onClick={() => {deleteImage(ref)}}>DELETE</button>
           </div>
         })}

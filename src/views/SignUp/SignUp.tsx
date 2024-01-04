@@ -3,18 +3,31 @@ import Button from '@mui/material/Button'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { Link, useNavigate } from 'react-router-dom'
+import { getDatabase, ref, set } from "firebase/database"
+
 
 const SignUp = () => {
 
     interface IUser {
+        username: string,
         email: string,
         password: string
     }
 
     const [user, setUser] = useState<IUser>({
+        username: '',
         email: '',
         password: ''
     })
+
+    const createUserProfile = (username: string, email:string) => {
+        const db = getDatabase()
+        const myUser = {
+          username: username,
+          bio:'',
+        }
+        set(ref(db, 'users/' + email), myUser)
+      }
 
     const navigate = useNavigate()
 
@@ -22,10 +35,8 @@ const SignUp = () => {
         event.preventDefault()
         createUserWithEmailAndPassword(auth, user.email, user.password)
     .then((userCredential) => {
-        // Signed up 
-        const user = userCredential.user;
+        createUserProfile(user.username, userCredential.user.uid)
         navigate('/login')
-        // ...
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -42,14 +53,25 @@ const SignUp = () => {
         />
         <form className="text-center">
             <div className="form-group m-3">
-                <label htmlFor="exampleInputEmail1">Email address</label>
+            <label htmlFor="usernameInput">User Name</label>
+                <input
+                onChange={(event) => {
+                    setUser({...user, username: event.target.value})
+                }} 
+                type="text" 
+                className="form-control" 
+                id="usernameInput" 
+                placeholder="Username" 
+                />
+                <br/>
+                <label htmlFor="emailInput">Email address</label>
                 <input
                 onChange={(event) => {
                     setUser({...user, email: event.target.value})
                 }} 
                 type="email" 
                 className="form-control" 
-                id="exampleInputEmail1" 
+                id="emailInput" 
                 placeholder="Enter email" 
                 />
                 <small 
@@ -59,14 +81,14 @@ const SignUp = () => {
                 </small>
             </div>
             <div className="form-group m-3">
-                <label htmlFor="exampleInputPassword1">Password</label>
+                <label htmlFor="pwInput">Password</label>
                 <input
                 onChange={(event) => {
                     setUser({...user, password: event.target.value})
                 }} 
                 type="password" 
                 className="form-control" 
-                id="exampleInputPassword1" 
+                id="pwInput" 
                 placeholder="Password" 
                 />
             </div>

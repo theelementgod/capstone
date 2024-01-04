@@ -22,6 +22,8 @@ const imageListRef = ref(storage, 'characterSheets/')
     })
   }
 
+
+
   useEffect(() => {
     listAll(imageListRef).then((response) => {
       console.log(response.items)
@@ -58,10 +60,10 @@ const imageListRef = ref(storage, 'characterSheets/')
         <button onClick={uploadImage}>Upload Image</button>
       </div>
 
-      <div>
+      <div className="imageContainer">
         {imageList.map(([url, ref]) => {
             return <div key={url}>
-            <img className="characterSheets" src={url}/>
+            <img className="uploadedImages" src={url}/>
             <button onClick={() => {deleteImage(ref)}}>DELETE</button>
           </div>
         })}

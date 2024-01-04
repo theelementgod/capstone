@@ -1,4 +1,31 @@
 
+* {
+  padding-top: 2px;
+}
+body {
+  height: 100vh;
+}
+
+.dmHelper {
+  color: black
+}
+
+.form-group {
+  font-weight: 700;
+  font-family: 'Dosis', sans-serif;
+}
+
+.form-control {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.login_btn {
+  border-radius: 40%;
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -56,6 +83,24 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+a {
+  color: black;
+}
+
+.home_btn {
+  display: flex;
+  
+}
+
+.imageContainer {
+  margin: 50px;
+  align-items: center;
+}
+
+.uploadedImages {
+  height: 300px;
 }
 
 .characterSheets {

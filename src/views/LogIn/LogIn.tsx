@@ -7,11 +7,13 @@ import { Link, useNavigate } from "react-router-dom"
 
 const LogIn = () => {
   interface User {
+    username: string,
     email: string,
     password: string
   }
 
   const [user, setUser] = useState<User>({
+    username: '',
     email: '',
     password: ''
   })
@@ -35,8 +37,9 @@ const LogIn = () => {
   }
   return (
     <>
+      <div className="login-page">
         <img 
-        className='d-block w-25 mx-auto m-3' 
+        className='login_btn d-block w-25 mx-auto m-3' 
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMbA4-dej-vTE6KD8HRtxEFHfvOWzyU21wQ&usqp=CAU" 
         alt="sign up" 
         />
@@ -78,6 +81,7 @@ const LogIn = () => {
                 {"Don't have an account?  Sign Up!"}
             </Link>
         </form>
+      </div>
     </>
   )
 }
