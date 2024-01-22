@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react'
 import Button from '@mui/material/Button'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import { getDatabase, ref, set } from "firebase/database"
@@ -14,28 +14,38 @@ const SignUp = () => {
         password: string
     }
 
-    const [user, setUser] = useState<IUser>({
+    const [currentUser, setCurrentUser] = useState<IUser>({
         username: '',
         email: '',
         password: ''
     })
 
+    const auth = getAuth()
+    const user = auth.currentUser
+    const db = getDatabase()
+
     const createUserProfile = (username: string, email:string) => {
-        const db = getDatabase()
         const myUser = {
           username: username,
           bio:'',
         }
         set(ref(db, 'users/' + email), myUser)
+        updateProfile(user, {
+            displayName: (currentUser.username)
+        }).then(() => {
+            <span></span>
+        }).catch((error) => {
+            console.error(error)
+        })
       }
 
     const navigate = useNavigate()
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
-        createUserWithEmailAndPassword(auth, user.email, user.password)
+        createUserWithEmailAndPassword(auth, currentUser.email, currentUser.password)
     .then((userCredential) => {
-        createUserProfile(user.username, userCredential.user.uid)
+        createUserProfile(currentUser.username, userCredential.user.uid)
         navigate('/login')
     })
     .catch((error) => {
@@ -47,7 +57,8 @@ const SignUp = () => {
     }
   return (
     <>
-        <img className='w-25 d-block mx-auto m-3' 
+        <h1 className='text-center'>DM Helper</h1>
+        <img className='authicons w-25 d-block mx-auto m-3' 
         src="https://cdn-icons-png.flaticon.com/512/5455/5455877.png" 
         alt="sign up" 
         />
@@ -56,7 +67,7 @@ const SignUp = () => {
             <label htmlFor="usernameInput">User Name</label>
                 <input
                 onChange={(event) => {
-                    setUser({...user, username: event.target.value})
+                    setCurrentUser({...currentUser, username: event.target.value})
                 }} 
                 type="text" 
                 className="form-control" 
@@ -67,7 +78,7 @@ const SignUp = () => {
                 <label htmlFor="emailInput">Email address</label>
                 <input
                 onChange={(event) => {
-                    setUser({...user, email: event.target.value})
+                    setCurrentUser({...currentUser, email: event.target.value})
                 }} 
                 type="email" 
                 className="form-control" 
@@ -84,7 +95,7 @@ const SignUp = () => {
                 <label htmlFor="pwInput">Password</label>
                 <input
                 onChange={(event) => {
-                    setUser({...user, password: event.target.value})
+                    setCurrentUser({...currentUser, password: event.target.value})
                 }} 
                 type="password" 
                 className="form-control" 

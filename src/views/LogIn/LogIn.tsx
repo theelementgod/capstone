@@ -38,8 +38,9 @@ const LogIn = () => {
   return (
     <>
       <div className="login-page">
+        <h1 className="text-center">DM Helper</h1>
         <img 
-        className='login_btn d-block w-25 mx-auto m-3' 
+        className='authicons d-block w-25 mx-auto m-3' 
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlMbA4-dej-vTE6KD8HRtxEFHfvOWzyU21wQ&usqp=CAU" 
         alt="sign up" 
         />

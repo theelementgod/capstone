@@ -5,6 +5,7 @@ const Home = () => {
   return (
     <>
       <Nav/>
+      <div className="home-background" />
     </>
   )
 }

@@ -6,6 +6,32 @@ body {
   height: 100vh;
 }
 
+.home-background {
+  background-image: url('./images/castle.png');
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
+.resources-background {
+  background: linear-gradient(45deg, black 30%, yellow, black 70%);
+  height: 100vh;
+}
+
+.resources-header {
+  color: yellow;
+}
+
+.character-sheets-header{
+  color: rgb(182, 170, 170);
+}
+
+.character-sheets-background {
+  background: linear-gradient(135deg, red 10%, black 40%, red 90%);
+  height: 100vh;
+}
+
 .dmHelper {
   color: black
 }
@@ -60,7 +86,6 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -92,6 +117,7 @@ a {
 .home_btn {
   display: flex;
   
+  
 }
 
 .imageContainer {
@@ -101,6 +127,7 @@ a {
 
 .uploadedImages {
   height: 300px;
+  margin: 10px;
 }
 
 .characterSheets {
@@ -121,9 +148,14 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: skyblue;
+  background-color: ;
   position: sticky;
   top: 0;
+}
+
+.navBtn {
+  background-color: transparent;
+  border: none;
 }
 
 nav ul {

@@ -1,4 +1,4 @@
-import { getDatabase, get, ref, child, push, update } from "firebase/database"
+import { getDatabase, get, ref, child, update } from "firebase/database"
 import Nav from "../../components/Nav/Nav"
 import { useEffect, useState } from "react"
 

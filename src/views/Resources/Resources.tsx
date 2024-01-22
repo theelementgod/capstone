@@ -2,6 +2,8 @@ import { ChangeEvent, useState, useEffect } from "react"
 import { storage } from "../../firebase"
 import { ref, uploadBytes, listAll, getDownloadURL, deleteObject } from "firebase/storage"
 import Nav from "../../components/Nav/Nav"
+import 'bootstrap/dist/css/bootstrap-grid.min.css'
+import 'bootstrap/js/src/modal'
 
 const Resources = () => {
   
@@ -45,26 +47,53 @@ const imageListRef = ref(storage, 'resources/')
   return (
     <>
       <Nav/>
-      <h1 className="text-center">Resources</h1>
-      <div>
-        <input 
-        type="file" 
-        onChange={(event:ChangeEvent<HTMLInputElement>) => {
-          const imageFile = event.target.files
-          if (imageFile) {
-            setImageUpload(imageFile[0])}}
-          }/>
-        <button onClick={uploadImage}>Upload Image</button>
-      </div>
-      <br/>
+      <div className="resources-background">
+        <h1 className="resources-header text-center">Resources</h1>
+        <div className="text-center">
+          <input 
+          type="file" 
+          onChange={(event:ChangeEvent<HTMLInputElement>) => {
+            const imageFile = event.target.files
+            if (imageFile) {
+              setImageUpload(imageFile[0])}}
+            }/>
+          <button onClick={uploadImage}>Upload Image</button>
+        </div>
 
-      <div className="imageContainer">
-        {imageList.map(([url, ref]) => {
-            return <div key={url}>
-            <img className="uploadedImages" src={url}/>
-            <button onClick={() => {deleteImage(ref)}}>DELETE</button>
-          </div>
-        })}
+        <div className="imageContainer text-center" >
+          {imageList.map(([url, ref]) => {
+              return <div key={url}>
+              <img 
+                data-bs-toggle="modal" 
+                data-bs-target="#imagePopout"
+                className="uploadedImages" 
+                src={url}
+              />
+              <div 
+                className="modal fade" 
+                id="imagePopout" 
+                tabIndex="-1" 
+                aria-hidden="true"
+              >
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-body">
+                      <button 
+                        type="button" 
+                        className="btn-close" 
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                      </button>
+                      <img src={url} className="d-block w-100" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button onClick={() => {deleteImage(ref)}}>DELETE</button>
+            </div>
+          })}
+        </div>
       </div>
     </>
   )
